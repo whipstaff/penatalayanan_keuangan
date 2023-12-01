@@ -1,0 +1,92 @@
+{% extends 'keuangan/base.html' %}
+{% block content %}
+{% load static %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Daftar Keluarga</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'staffgereja' %}">Home</a></li>
+          <li class="breadcrumb-item">Data Jemaat</li>
+          <li class="breadcrumb-item active">Daftar Keluarga</li>
+        </ol>
+        <div class="filter ">
+          <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-person-plus-fill text-success"> Tambah Keluarga Baru</i></a>
+          <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Tambahkan Keluarga Baru</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+              <form action="" method="POST" class="row g-3">
+                {% csrf_token %}
+                <div class="col-md-6">
+                  {{form.keluarga}}
+                </div>
+                <div class="col-md-6">
+                  <input type="date" class="form-control" placeholder="Tanggal Pernikahan" name="tgl_pernikahan">
+                </div>
+                
+                
+                <div class="modal-footer">
+                  <input type="submit" name="add-keluarga" value="Submit" class="btn btn btn-primary"></input>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+    
+    <section class="section dashboard">
+      <div class="row">
+        
+        <!-- Left side columns -->
+        <div class="col-lg-12">
+          
+          <div class="card pt-4">
+            
+            <div class="card-body ">
+              
+              <!-- Default Table -->
+              <table class="table" id="tabel-anggota">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Keluarga</th>
+                    <th scope="col">Tanggal Pernikahan</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  {% for kel in all_kel %}
+                    <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>{{kel.keluarga}}</td>
+                      <td>{{kel.tgl_pernikahan}}</td>
+                      <td><a href="{{kel.get_url}}" class="btn btn-warning btn-sm"> <i class="bi bi-pencil">Preview</i></a></td>
+                    </tr>
+                  {% endfor %}
+                    
+                  
+                  
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+        </div><!-- End Left side columns -->
+
+        
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock content %}

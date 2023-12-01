@@ -1,0 +1,130 @@
+{% extends 'keuangan/base.html' %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Laporan Keuangan Pospel</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'staffgereja' %}">Home</a></li>
+          <li class="breadcrumb-item">Keuangan</li>
+          <li class="breadcrumb-item active">Laporan Keuangan Pospel</li>
+        </ol>
+        <div class="filter ">
+          <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-file-earmark-plus-fill text-success"> Tambah Entri</i></a>
+          <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Tambahkan Entri Baru</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+              <form class="row g-3" action="" method="POST">
+                {% csrf_token %}
+                <div class="col-md-12">
+                  <input type="text" class="form-control" placeholder="Uraian" name="uraian">
+                </div>
+                
+                <div class="col-md-12">
+                  <input type="date" class="form-control" placeholder="Tanggal" name="tanggal">
+                </div>
+                <div class="col-md-6">
+                  <input type="number" class="form-control" placeholder="Debit" name="debit">
+                </div>
+                <div class="col-6">
+                  <input type="number" class="form-control" placeholder="Kredit" name="kredit">
+                </div>
+                
+                <div class="col-md-6">
+                  <select id="inputState" class="form-select" name="jenis" id="jenis">
+                    <option >Jenis...</option>
+                    <option value="True">Penerimaan</option>
+                    <option value="False">Pengeluaran</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <select id="inputState3" class="form-select" name="psp" id="psp">
+                    <option>Pos Pelayanan...</option>
+                    
+                    {% for psp in pos_pelayanan %}
+                      <option value="{{psp.id}}" name="psp" id="psp">{{psp.title}}</option>
+                    {% endfor %}
+                      
+                  </select>
+                </div>
+                
+                <div class="modal-footer">
+                  <input type="submit" name="add-keuangan" value="Submit" class="btn btn btn-primary"></input>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+    
+    <section class="section dashboard">
+      <div class="row">
+        
+        <!-- Left side columns -->
+        <div class="col-lg-12">
+          
+          <div class="card pt-4">
+            
+            <div class="card-body ">
+              
+              <!-- Default Table -->
+              <table class="table" id="tabel-anggota">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Jenis</th>
+                    <th scope="col">Uraian</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Kredit</th>
+                    <th scope="col">Debit</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for fnc in keuangan %}
+                    <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>{% if fnc.jenis == True %}
+                        <span class="badge bg-success"><i class="bi bi-arrow-bar-down"></i></span></td>
+                        {% else %}
+                        <span class="badge bg-danger"><i class="bi bi-arrow-bar-up"></i></span></td>
+                        {% endif %}</td>
+                      <td>{{fnc.uraian}}</td>
+                      <td>{{fnc.tanggal}}</td>
+                      <td>{{fnc.kredit|intcomma}}</td>
+                      <td>{{fnc.debit|intcomma}}</td>
+                      <td>{{fnc.tanggal}}</td>
+                      <td><form action="" method="post" onsubmit="return confirm('Yakin ingin menghapus entri?');">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete" id="delete" value="{{fnc.id}}">
+                        <input type="submit" name="delete-entri" class="btn btn-danger btn-sm" value="Delete"></input>
+                      </form></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+        </div><!-- End Left side columns -->
+
+        
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock content %}

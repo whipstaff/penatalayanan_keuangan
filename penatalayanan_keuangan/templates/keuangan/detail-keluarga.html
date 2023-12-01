@@ -1,0 +1,100 @@
+{% extends 'keuangan/base.html' %}
+{% block content %}
+{% load static %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Detail Keluarga</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'staffgereja' %}">Home</a></li>
+        <li class="breadcrumb-item">Data Jemaat</li>
+        <li class="breadcrumb-item active">Detail Keluarga</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section profile">
+    <div class="row">
+      
+
+      <div class="col-xl-12">
+
+        <div class="card">
+          <div class="card-body pt-3">
+            <!-- Bordered Tabs -->
+            <ul class="nav nav-tabs nav-tabs-bordered">
+
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Detail</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Anggota</button>
+              </li>
+
+            </ul>
+            <div class="tab-content pt-2">
+
+              <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                
+                <h5 class="card-title">Detail Keluarga</h5>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label ">Keluarga</div>
+                  <div class="col-lg-9 col-md-8">{{detail.keluarga}}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Tanggal Pernikahan</div>
+                  <div class="col-lg-9 col-md-8">{{detail.tgl_pernikahan}}</div>
+                </div>
+
+
+              </div>
+
+              <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                <!-- Profile Edit Form -->
+                <table class="table" id="tabel-anggota">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Nama</th>
+                      <th scope="col">Jabatan/Posisi</th>
+                      <th scope="col">Sektor</th>
+                      <th scope="col">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for agt in agt_keluarga %}
+                    <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>{{agt.fullname}}</td>
+                      <td>{{agt.posisi}}</td>
+                      <td>{{agt.sektor}}</td>
+                      <td><a href="{{agt.get_url}}" class="btn btn-warning btn-sm"> <i class="bi bi-pencil">Preview</i></a></td>
+                      
+                    </tr>
+                      {% endfor %}
+                        
+                    
+                  </tbody>
+                </table>
+
+              </div>
+
+              
+
+            </div><!-- End Bordered Tabs -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+
+{% endblock content %}

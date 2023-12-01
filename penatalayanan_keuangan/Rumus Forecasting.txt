@@ -1,0 +1,8 @@
+Penerimaan Rata-Rata /Bulan :
+(penerimaan sepanjang tahun ini / jumlah bulan berjalan)
+
+Kemungkinan Penerimaan sepanjang sisa tahun :
+(penerimaan rata-rata per bulan * sisa bulan)
+
+Prakiraan Total Penerimaan Tahun Ini :
+(penerimaan sepanjang tahun ini + kemungkinan penerimaan)

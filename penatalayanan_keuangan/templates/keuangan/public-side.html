@@ -1,0 +1,356 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href={% static "assets_public/img/hero-img2.png" %} rel="icon">
+  <link href={% static "assets_public/img/apple-touch-icon.png" %} rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href={% static "assets_public/vendor/bootstrap/css/bootstrap.min.css" %} rel="stylesheet">
+  <link href={% static "assets_public/vendor/bootstrap-icons/bootstrap-icons.css" %} rel="stylesheet">
+  <link href={% static "assets_public/vendor/boxicons/css/boxicons.min.css" %} rel="stylesheet">
+  <link href={% static "assets_public/vendor/glightbox/css/glightbox.min.css" %} rel="stylesheet">
+  <link href={% static "assets_public/vendor/swiper/swiper-bundle.min.css" %} rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href={% static "assets_public/css/style.css" %} rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: eNno
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/enno-free-simple-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="{% url 'index' %}">HKBP Bitung</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src={% static "assets_public/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#overview">Overview</a></li>
+          <li><a class="nav-link scrollto" href="#forecast">Forecast</a></li>
+          <li><a class="nav-link scrollto" href="#data-keuangan">Data Keuangan</a></li>
+          
+          <li><a class="getstarted scrollto" href="{% url 'staffgereja' %}">Staff Gereja</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>Huria Kristen Batak Protestan Bitung</h1>
+          <h2>Aplikasi Web Penatalayanan Keuangan</h2>
+          <div class="d-flex">
+            <a href="#about" class="btn-get-started scrollto" data-bs-toggle="modal" data-bs-target="#modal-export">Unduh Data Keuangan</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img">
+          <img src={% static "assets_public/img/hero-img1.png" %} class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Featured Services Section ======= -->
+    <section id="featured-services" class="featured-services">
+        <span id="overview"></span>
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-wallet2"></i></div>
+              <h4 class="title"><a href="">Rp {{saldo|intcomma}}</a></h4>
+              <p class="description">Saldo Kas Huria</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-clipboard-plus"></i></div>
+              <h4 class="title"><a href="">Rp {{revenue_monthly|intcomma}}</a></h4>
+              <p class="description">Penerimaan Huria Bulan Ini</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
+            <div class="icon-box">
+              <div class="icon danger"><i class="bi bi-clipboard-minus text-danger"></i></div>
+              <h4 class="title"><a href="">Rp {{expense_monthly|intcomma}}</a></h4>
+              <p class="description">Pengeluaran Huria Bulan Ini</p>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          
+          <div class="col-lg-6 col-md-6 mt-4 mt-md-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-plus-circle-fill"></i></div>
+              <h4 class="title"><a href="">Rp {{revenue_yearly|intcomma}}</a></h4>
+              <p class="description">Penerimaan Huria Tahun Ini</p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-dash-circle-fill text-danger"></i></div>
+              <h4 class="title"><a href="">Rp {{expense_yearly|intcomma}}</a></h4>
+              <p class="description">Pengeluaran Huria Tahun Ini</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Featured Services Section -->
+    <br>
+{% comment %} 
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      
+    </section><!-- End About Section --> {% endcomment %}
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+        <span id="forecast"></span>
+      <div class="container">
+
+        <div class="row counters">
+
+          <div class="col-lg-4 col-md-6 text-center">
+            <span class="">Rp {{avr_mr|intcomma}}</span>
+            <p>Penerimaan Rata-Rata Huria per Bulan</p>
+          </div>
+
+          <div class="col-lg-4 col-md-6 text-center">
+            <span class="">Rp {{psb_rv|intcomma}}</span>
+            <p>Kemungkinan Penerimaan Huria Sepanjang Sisa Tahun</p>
+          </div>
+
+          <div class="col-lg-4 col-md-6 text-center">
+            <span class="">Rp {{frcst|intcomma}}</span>
+            <p>Prakiraan Total Penerimaan Huria Tahun Ini</p>
+          </div>
+
+          
+
+        </div>
+
+      </div>
+    </section><!-- End Counts Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+        <span id="data-keuangan"></span>
+      <div class="container">
+
+        <div class="section-title">
+          <span>Data Keuangan</span>
+          <h2>Data Keuangan</h2>
+          {% comment %} <p></p> {% endcomment %}
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 mt-3">
+            <div class="icon-box">
+                <h4><a href="">Penerimaan</a></h4>
+            <table class="table" id="tabel-terima">
+                <thead>
+                  <tr>
+                    <th scope="col">Tgl Input</th>
+                    <th scope="col">Uraian</th>
+                    
+                    <th scope="col">Huria</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for fnc in masuk %}
+                    <tr>
+                      <td>{{fnc.created|date:"d/m/Y"}}</td>
+                      <td>{{fnc.uraian}}...</td>
+                      <td>{{fnc.huria|intcomma}}</td>
+                     
+                    </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 mt-3">
+            <div class="icon-box">
+                <h4><a href="">Pengeluaran</a></h4>
+            <table class="table" id="tabel-keluar">
+                <thead>
+                  <tr>
+                    <th scope="col">Tgl Input</th>
+                    <th scope="col">Uraian</th>
+                    
+                    <th scope="col">Huria</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for fnc in keluar %}
+                    <tr>
+                      <td>{{fnc.created|date:"d/m/Y"}}</td>
+                      <td>{{fnc.uraian}}...</td>
+                      <td>{{fnc.huria|intcomma}}</td>
+                     
+                    </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    
+
+    <!-- ======= Testimonials Section ======= -->
+    
+
+    <!-- ======= Cta Section ======= -->
+    
+
+   
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+
+      <div class="container">
+
+        <div class="row  justify-content-center">
+          <div class="col-lg-6">
+            <h3>HURIA KRISTEN BATAK PROTESTAN BITUNG</h3>
+            <p>Aplikasi Web Penatalayanan Keuangan</p>
+          </div>
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>eNno</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/enno-free-simple-bootstrap-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+  <div class="modal fade" id="modal-export" tabindex="-1" role="dialog" aria-labelledby="modal-export" aria-hidden="true">
+    <div class="modal-dialog modal-tertiary modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Export Laporan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+            <form class="row g-3" action="{% url 'export-entri' %}" method="POST">
+                  <div class="modal-body pt-0">
+                      <div class="py-0 px-3 text-center">
+                        
+                          {% comment %} <p class="mb-4 text-white">Masukkan Email Terdaftar.</p> {% endcomment %}
+                          
+                              {% csrf_token %}
+                                  <div class="row mx-2 my-2">
+                                  
+                                    <label class="mx-2 my-2"><h6>Masukkan Rentang Waktu Laporan</h6></label>
+                                    <div class="col-md-6">
+                                      <input type="date" class="form-control" placeholder="Start" name="d-start" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <input type="date" class="form-control" placeholder="End" name="d-end" required>
+                                    </div>
+                                      
+                                  </div>
+                          
+                      </div>
+                      <div class="modal-footer d-flex justify-content-center pt-0 pb-3">
+                          
+                       
+                        <input type="submit" name="export-data" value="Export Range" class="btn btn btn-primary"></input>
+                      </form>
+                      <form  action="{% url 'export-entri' %}" method="POST">
+                          {% csrf_token %}
+                        <input type="submit" name="export-all" value="Export All" class="btn btn btn-success"></input>
+                      </form>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+        </div>
+    </div>
+  </div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src={% static "assets_public/vendor/purecounter/purecounter_vanilla.js" %}></script>
+  <script src={% static "assets_public/vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src={% static "assets_public/vendor/glightbox/js/glightbox.min.js" %}></script>
+  <script src={% static "assets_public/vendor/isotope-layout/isotope.pkgd.min.js" %}></script>
+  <script src={% static "assets_public/vendor/swiper/swiper-bundle.min.js" %}></script>
+  <script src={% static "assets_public/vendor/php-email-form/validate.js" %}></script>
+
+  <!-- Template Main JS File -->
+  <script src={% static  "assets_public/js/main.js" %}></script>
+  
+  <script type= "text/javascript">
+      $(document).ready(function () {
+        $('#tabel-terima').DataTable();
+    });
+    </script>
+  <script type= "text/javascript">
+      $(document).ready(function () {
+        $('#tabel-keluar').DataTable();
+    });
+    </script>
+</body>
+</html>

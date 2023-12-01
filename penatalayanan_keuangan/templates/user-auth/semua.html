@@ -1,0 +1,288 @@
+{% extends 'manager/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div class="d-block mb-4 mb-md-0">
+        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item">
+                    <a href="#">
+                        <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </a>
+                </li>
+                <li class="breadcrumb-item"><a href="#">Manajer Berkas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Semua Berkas</li>
+            </ol>
+        </nav>
+        {% comment %} <h2 class="h4">All Orders</h2>
+        <p class="mb-0">Your web analytics dashboard template.</p> {% endcomment %}
+    </div>
+    
+</div>
+<div class="table-settings mb-4">
+    <div class="row align-items-center justify-content-between">
+        <div class="dropdown">
+            <a href="#" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-achievement">
+                <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                Unggah Berkas
+            </a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-gray-600">Export</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#catatan-modal">Notes</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <table class="table table-hover" id="tabel-semuaberkas">
+        <thead>
+            <tr>
+                <th class="border-gray-200">#</th>
+                <th class="border-gray-200">Nama File</th>						
+                <th class="border-gray-200">Diunggah</th>
+                <th class="border-gray-200">Diperbarui</th>
+                <th class="border-gray-200">Kategori</th>
+                <th class="border-gray-200">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Item -->
+            <tr>
+                <td>
+                    <a href="#" class="fw-bold">
+                        1
+                    </a>
+                </td>
+                <td>
+                    <span class="fw-normal text-info"><a href="">{{data|truncatewords:2}}</a></span>
+                </td>
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>                        
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>
+                <td>
+                    <span class="fw-normal">Borang</span>
+                </td>
+               
+                <td>
+                    <a href="#" class="text-info fw-bold d-inline-flex align-items-center">
+                        Unduh
+                        <svg class="icon icon-xxs ms-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" /></svg>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#" class="fw-bold">
+                        1
+                    </a>
+                </td>
+                <td>
+                    <span class="fw-normal text-info"><a href="">{{data|truncatewords:2}}</a></span>
+                </td>
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>                        
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>
+                <td>
+                    <span class="fw-normal">Borang</span>
+                </td>
+                
+                <td>
+                    <a href="#" class="text-info fw-bold d-inline-flex align-items-center">
+                        Unduh
+                        <svg class="icon icon-xxs ms-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" /></svg>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#" class="fw-bold">
+                        1
+                    </a>
+                </td>
+                <td>
+                    <span class="fw-normal text-info"><a href="">{{data|truncatewords:2}}</a></span>
+                </td>
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>                        
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>
+                <td>
+                    <span class="fw-normal">Borang</span>
+                </td>
+                <td>
+                    <a href="#" class="text-info fw-bold d-inline-flex align-items-center">
+                        Unduh
+                        <svg class="icon icon-xxs ms-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" /></svg>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#" class="fw-bold">
+                        1
+                    </a>
+                </td>
+                <td>
+                    <span class="fw-normal text-info"><a href="">{{data|truncatewords:2}}</a></span>
+                </td>
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>                        
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>
+                <td>
+                    <span class="fw-normal">Borang</span>
+                </td>
+                <td>
+                    <a href="#" class="text-info fw-bold d-inline-flex align-items-center">
+                        Unduh
+                        <svg class="icon icon-xxs ms-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" /></svg>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#" class="fw-bold">
+                        1
+                    </a>
+                </td>
+                <td>
+                    <span class="fw-normal text-info"><a href="">{{data|truncatewords:2}}</a></span>
+                </td>
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>                        
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>
+                <td>
+                    <span class="fw-normal">Borang</span>
+                </td>
+                <td>
+                    <a href="#" class="text-info fw-bold d-inline-flex align-items-center">
+                        Unduh
+                        <svg class="icon icon-xxs ms-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" /></svg>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#" class="fw-bold">
+                        1
+                    </a>
+                </td>
+                <td>
+                    <span class="fw-normal text-info"><a href="">{{data|truncatewords:2}}</a></span>
+                </td>
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>                        
+                <td><span class="fw-normal">{% now "DATE_FORMAT" %}</span></td>
+                <td>
+                    <span class="fw-normal">Borang</span>
+                </td>
+                <td>
+                    <a href="#" class="text-info fw-bold d-inline-flex align-items-center">
+                        Unduh
+                        <svg class="icon icon-xxs ms-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" /></svg>
+                    </a>
+                </td>
+            </tr>
+            
+                                     
+        </tbody>
+    </table>
+    
+    <!-- Modal Content -->
+    <div class="modal fade" id="modal-achievement" tabindex="-1" role="dialog" aria-labelledby="modal-achievement" aria-hidden="true">
+        <div class="modal-dialog modal-tertiary modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close theme-settings-close fs-6 ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header mx-auto">
+                    <p class="lead mb-0 text-white">Unggah Berkas</p>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="py-3 px-5 text-center">
+                        
+                        <h2 class="h3 modal-title mb-3 text-white">Berkas Akreditasi, <br>Teknik Informatika</h2>
+                        <p class="mb-4 text-white">Silahkan Unggah Berkas Anda.</p>
+                        
+                        <div class="row ">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label text-white">Berkas</label>
+                                    <input class="form-control" type="file" id="formFile">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 mt-4 mt-md-0">
+                                <div class="mb-3">
+                                    <label class="form-label text-white" for="country">Kategori Berkas</label>
+                                        <select class="form-select" id="country" aria-label="Default select example">
+                                            <option selected>--Kategori--</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-white" for="textarea">Deskripsi Berkas</label>
+                            <textarea class="form-control" placeholder="Enter your message..." id="textarea" rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center pt-0 pb-3">
+                    <button type="button" class="btn btn-sm btn-white text-tertiary" data-bs-dismiss="modal">Batal!</button>
+                    <button type="button" class="btn btn-sm btn-secondary text-tertiary" data-bs-dismiss="modal">Unggah!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Modal Content -->
+    <div class="modal fade" id="catatan-modal" tabindex="-1" role="dialog" aria-labelledby="catatan-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="h6 modal-title">Daftar Berkas</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+              <form class="d-flex justify-content-center align-items-center mb-4">
+                <div class="form-outline flex-fill">
+                  <input type="text" id="form2" class="form-control" placeholder="Target Berkas" />
+                </div>
+                <button type="submit" class="btn btn-success text-white ms-2">Tambah</button>
+              </form>
+  
+              <!-- Tabs navs -->
+  
+              <!-- Tabs content -->
+              <div class="tab-content" id="ex1-content">
+                <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"
+                  aria-labelledby="ex1-tab-1">
+                  <ul class="list-group mb-0">
+                    <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded"
+                      style="background-color: #f4f6f7;">
+                      <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
+                      Morbi leo risus
+                    </li>
+                    <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded"
+                      style="background-color: #f4f6f7;">
+                      <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
+                      Porta ac consectetur ac
+                    </li>
+                    <li class="list-group-item d-flex align-items-center border-0 mb-0 rounded"
+                      style="background-color: #f4f6f7;">
+                      <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
+                      Vestibulum at eros
+                    </li>
+                  </ul>
+                </div>
+                
+              </div>
+              
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Perbarui Ditandai</button>
+                    <button type="button" class="btn btn-primary">Hapus Ditandai</button>
+                    <button type="button" class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

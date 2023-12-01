@@ -1,0 +1,153 @@
+{% extends 'keuangan/base.html' %}
+{% block content %}
+{% load static %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>
+        {% if title == 'semua' %}
+            Semua Anggota Jemaat
+            {% else %}
+            Anggota Jemaat {{title}}
+          {% endif %}
+        </h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'staffgereja' %}">Home</a></li>
+          <li class="breadcrumb-item">Data Jemaat</li>
+          <li class="breadcrumb-item active">
+          {% if title == 'semua' %}
+            Semua Anggota Jemaat</li>
+            {% else %}
+            Anggota Jemaat {{title}}
+          {% endif %}
+        </ol>
+        <div class="filter ">
+          <a class="icon" href="#" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-person-plus-fill text-success"> Tambah Anggota Jemaat</i></a>
+          <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Tambahkan Anggota Jemaat</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+              <form action="" method="POST" class="row g-3">
+                {% csrf_token %} 
+                <div class="col-md-6">
+                  <input type="text" class="form-control" placeholder="Nama Lengkap" name="fullname">
+                </div>
+                <div class="col-md-6">
+                  <select id="inputState1" class="form-select" name="kel" id="kel">
+                    <option>Keluarga...</option>
+                    
+                    {% for kel in all_kel %}
+                      <option value="{{kel.id}}" name="kel" id="kel">{{kel.keluarga}}</option>
+                    {% endfor %}
+                      
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <input type="date" class="form-control" placeholder="Tanggal Lahir" name="tgl_lahir">
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" placeholder="Pekerjaan" name="pekerjaan">
+                </div>
+                <div class="col-6">
+                  <input type="text" class="form-control" placeholder="Alamat" name="alamat">
+                </div>
+                <div class="col-md-6">
+                  <select id="inputState2" class="form-select" name="skt" id="skt">
+                    <option>Sektor...</option>
+                    
+                    {% for skt in sektor %}
+                      <option value="{{skt.id}}" name="skt" id="skt">{{skt.title}}</option>
+                    {% endfor %}
+                      
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" placeholder="Domisili" name="domisili">
+                </div>
+                <div class="col-md-4">
+                  <select id="inputState3" class="form-select" name="pss" id="pss">
+                    <option>Posisi...</option>
+                    
+                    {% for pss in posisi %}
+                      <option value="{{pss.id}}" name="pss" id="pss">{{pss.title}}</option>
+                    {% endfor %}
+                      
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <select id="inputState5" class="form-select" name="status" id="status">
+                    <option >Status...</option>
+                    <option value="True">Aktif</option>
+                    <option value="False">NonAktif</option>
+                  </select>
+                </div>
+                
+                <div class="modal-footer">
+                  <input type="submit" name="add-anggota" value="Submit" class="btn btn btn-primary"></input>
+
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+    
+    <section class="section dashboard">
+      <div class="row">
+        
+        <!-- Left side columns -->
+        <div class="col-lg-12">
+          
+          <div class="card pt-4">
+            
+            <div class="card-body ">
+              
+              <!-- Default Table -->
+              <table class="table" id="tabel-anggota">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Jabatan/Posisi</th>
+                    <th scope="col">Keluarga</th>
+                    <th scope="col">Sektor</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for agt in semua_anggota %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{agt.fullname}}</td>
+                    <td>{{agt.posisi}}</td>
+                    <td>{{agt.keluarga}}</td>
+                    <td>{{agt.sektor}}</td>
+                    <td><a href="{{agt.get_url}}" class="btn btn-warning btn-sm"><i class="bi bi-pencil">Preview</i></a></td>
+                    
+                  </tr>
+                    {% endfor %}
+                      
+                  
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+        </div><!-- End Left side columns -->
+
+        
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock content %}

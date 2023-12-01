@@ -1,0 +1,405 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href={% static "assets/img/hkbp.png" %} rel="icon">
+  <link href={% static "assets/img/hkbp.png" %} rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href={% static "assets/vendor/bootstrap/css/bootstrap.min.css" %} rel="stylesheet">
+  <link href={% static "assets/vendor/bootstrap-icons/bootstrap-icons.css" %} rel="stylesheet">
+  <link href={% static "assets/vendor/boxicons/css/boxicons.min.css" %} rel="stylesheet">
+  <link href={% static "assets/vendor/quill/quill.snow.css" %} rel="stylesheet">
+  <link href={% static "assets/vendor/quill/quill.bubble.css" %} rel="stylesheet">
+  <link href={% static "assets/vendor/remixicon/remixicon.css" %} rel="stylesheet">
+  <link href={% static "assets/vendor/simple-datatables/style.css" %} rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href={% static "assets/css/style.css" %} rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.4.1
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="{% url 'staffgereja' %}" class="logo d-flex align-items-center">
+        <img src={% static "assets/img/apk.png" %} alt="">
+        {% comment %} <span class="d-none d-lg-block">NiceAdmin</span> {% endcomment %}
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    {% comment %} <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar --> {% endcomment %}
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        
+
+        
+
+        
+
+        <li class="nav-item dropdown me-4">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{request.user.username}}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{staff.fullname}}</h6>
+              <span>{{staff.posisi}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            
+            {% if section == 'Dashboard' %}
+            <li>
+              {% comment %} href="{% url 'export-entri' %}" {% endcomment %}
+                <a class="dropdown-item d-flex align-items-center btn btn-link" data-bs-toggle="modal" data-bs-target="#modal-export">
+                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                  <span>Export Laporan</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center  btn btn-link" data-bs-toggle="modal" data-bs-target="#modal-password">
+                  <i class="bi bi-pencil-square"></i>
+                  <span>Ganti Password</span>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            {% endif %}
+              
+            
+            
+            <li>
+              <a class="dropdown-item d-flex align-items-center text-danger" href="{% url 'user:logout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item ">
+        <a  class="nav-link {% if section != 'Dashboard' %} collapsed {% endif %} " href="{% url 'staffgereja' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      <li class="nav-item ">
+        <a  class="nav-link {% if section != 'Daftar Keluarga' %} collapsed {% endif %} " href="{% url 'daftar-keluarga' %}">
+          <i class="bi bi-people"></i>
+          <span>Daftar Keluarga</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+     
+      <li class="nav-item">
+        <a class="nav-link {% if section != 'Jemaat' %} collapsed {% endif %}" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person-bounding-box"></i><span>Anggota Jemaat</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content {% if section != 'Jemaat' %} collapse {% endif %} " data-bs-parent="#sidebar-nav">
+          <li>
+                <a class="nav-link {% if title == 'semua' %} active {% else %} collapsed {% endif %}" href="{% url 'anggota-jemaat' 'semua' %}">
+                  <i class="bi bi-circle"></i><span>Semua</span>
+                </a>
+          </li>
+          <li>
+            <a class="nav-link {% if title == 'sektor-1' %} active {% else %} collapsed {% endif %}" href="{% url 'anggota-jemaat' 'sektor-1' %}">
+              <i class="bi bi-circle"></i><span>Sektor 1</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link {% if title == 'sektor-2' %} active {% else %} collapsed {% endif %}" href="{% url 'anggota-jemaat' 'sektor-2' %}">
+              <i class="bi bi-circle"></i><span>Sektor 2</span>
+            </a>
+          </li>
+         
+          
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link {% if section != 'Penerimaan' %} collapsed {% endif %}" data-bs-target="#penerimaan-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-file-arrow-down"></i><span>Penerimaan</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="penerimaan-nav" class="nav-content {% if section != 'Penerimaan' %} collapse {% endif %} " data-bs-parent="#sidebar-nav">
+          <li>
+                <a class="nav-link {% if title == 'semua penerimaan' %} active {% else %} collapsed {% endif %}" href="{% url 'penerimaan' 'semua' %}">
+                  <i class="bi bi-circle"></i><span>Semua</span>
+                </a>
+          </li>
+          <li>
+            <a class="nav-link {% if title == 'penerimaan sektor-1' %} active {% else %} collapsed {% endif %}" href="{% url 'penerimaan' 'sektor-1' %}">
+              <i class="bi bi-circle"></i><span>Sektor 1</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link {% if title == 'penerimaan sektor-2' %} active {% else %} collapsed {% endif %}" href="{% url 'penerimaan' 'sektor-2' %}">
+              <i class="bi bi-circle"></i><span>Sektor 2</span>
+            </a>
+          </li>
+         
+          
+        </ul>
+      </li><!-- End Components Nav -->
+
+      
+
+      <li class="nav-item">
+        <a class="nav-link {% if section != 'Keuangan' %} collapsed {% endif %}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-file-arrow-up"></i><span>Pengeluaran</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content {% if section != 'Keuangan' %} collapse {% endif %} " data-bs-parent="#sidebar-nav">
+          {% comment %} <li>
+            <a class="nav-link {% if title == 'Laporan Keuangan' %} active {% else %} collapsed {% endif %}"href="{% url 'keuangan-bitung' %}">
+              <i class="bi bi-circle"></i><span>Laporan Keuangan</span>
+            </a>
+          </li> {% endcomment %}
+          
+          <li>
+            <a class="nav-link {% if title == 'semua pengeluaran' %} active {% else %} collapsed {% endif %}" href="{% url 'pengeluaran' 'semua' %}">
+              <i class="bi bi-circle"></i><span>Semua</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link {% if title == 'pengeluaran sektor-1' %} active {% else %} collapsed {% endif %}" href="{% url 'pengeluaran' 'sektor-1' %}">
+              <i class="bi bi-circle"></i><span>Sektor 1</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link {% if title == 'pengeluaran sektor-2' %} active {% else %} collapsed {% endif %}" href="{% url 'pengeluaran' 'sektor-2' %}">
+              <i class="bi bi-circle"></i><span>Sektor 2</span>
+            </a>
+          </li>
+          {% comment %} <li>
+            <a class="nav-link {% if title == 'Laporan Keuangan Pospel' %}  active {% else %} collapsed {% endif %}" href="{% url 'keuangan-pospel' %}">
+              <i class="bi bi-circle"></i><span>Keuangan Pos Pelayanan</span>
+            </a>
+          </li> {% endcomment %}
+          
+        </ul>
+        
+        {% if request.user.role == "ADMIN" %}
+        <li class="nav-item">
+            <a class="nav-link {% if title != 'Staff' %} collapsed {% endif %}" href="{% url 'staff' %}">
+              <i class="bi bi-person"></i>
+              <span>Staff</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+            
+        {% endif %}
+            
+      </li><!-- End Forms Nav -->
+
+      
+
+      
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+    
+    {% block content %}
+        
+    {% endblock content %}
+        
+
+    <div class="modal fade" id="modal-password" tabindex="-1" role="dialog" aria-labelledby="modal-password" aria-hidden="true">
+      <div class="modal-dialog modal-tertiary modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Ganti Password</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+              <form class="row g-3" action="" method="POST">
+                  <div class="modal-body pt-0">
+                      <div class="py-0 px-3 text-center">
+                        {% if error != "Null" %}
+                                <div class="label me-2 mb-2 text-danger">{{error}}</div>
+                              {% elif success != "Null" %}
+                                <div class="label me-2 mb-2 text-success">{{success}}</div>
+                        {% endif %}
+                          {% comment %} <p class="mb-4 text-white">Masukkan Email Terdaftar.</p> {% endcomment %}
+                          
+                              {% csrf_token %}
+                                  <div class="row ">
+                                     
+                                    <div class="col-md-12 mb-2">
+                                      <input type="password" class="form-control" placeholder="Password Lama" name="old">
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                      <input type="password" class="form-control" placeholder="Password Baru" name="password">
+                                    </div>
+                                    <div class="col-md-6">
+                                      <input type="password" class="form-control" placeholder="Konfirmasi Password Baru" name="confirm">
+                                    </div>
+                                      
+                                  </div>
+                          
+                      </div>
+                  </div>
+                  <div class="modal-footer d-flex justify-content-center pt-0 pb-3">
+                      
+                    <input type="submit" name="reset-pass" value="Konfirmasi" class="btn btn btn-primary"></input>
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="modal-export" tabindex="-1" role="dialog" aria-labelledby="modal-export" aria-hidden="true">
+      <div class="modal-dialog modal-tertiary modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Export Laporan</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+              <form class="row g-3" action="{% url 'export-entri' %}" method="POST">
+                    <div class="modal-body pt-0">
+                        <div class="py-0 px-3 text-center">
+                          
+                            {% comment %} <p class="mb-4 text-white">Masukkan Email Terdaftar.</p> {% endcomment %}
+                            
+                                {% csrf_token %}
+                                    <div class="row mx-2 my-2">
+                                    
+                                      <label class="mx-2 my-2"><h6>Masukkan Rentang Waktu Laporan</h6></label>
+                                      <div class="col-md-6">
+                                        <input type="date" class="form-control" placeholder="Start" name="d-start" required>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="date" class="form-control" placeholder="End" name="d-end" required>
+                                      </div>
+                                        
+                                    </div>
+                            
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center pt-0 pb-3">
+                            
+                         
+                          <input type="submit" name="export-data" value="Export Range" class="btn btn btn-primary"></input>
+                        </form>
+                        <form  action="{% url 'export-entri' %}" method="POST">
+                            {% csrf_token %}
+                          <input type="submit" name="export-all" value="Export All" class="btn btn btn-success"></input>
+                        </form>
+                          <button type="reset" class="btn btn-secondary">Reset</button>
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+          </div>
+      </div>
+    </div>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src={% static "assets/vendor/apexcharts/apexcharts.min.js" %}></script>
+  <script src={% static "assets/vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src={% static "assets/vendor/chart.js/chart.min.js" %}></script>
+  <script src={% static "assets/vendor/echarts/echarts.min.js" %}></script>
+  <script src={% static "assets/vendor/quill/quill.min.js" %}></script>
+  <script src={% static "assets/vendor/simple-datatables/simple-datatables.js" %}></script>
+  <script src={% static "assets/vendor/tinymce/tinymce.min.js" %}></script>
+  <script src={% static "assets/vendor/php-email-form/validate.js" %}></script>
+
+  <!-- Template Main JS File -->
+  <script src={% static "assets/js/main.js"></script>
+
+  <script type= "text/javascript">
+    $(document).ready(function () {
+      $('#tabel-anggota').DataTable();
+  });
+</script>
+  <script type= "text/javascript">
+    $(document).ready(function () {
+      $('#tabel-terima').DataTable();
+  });
+  </script>
+  <script type= "text/javascript">
+    $(document).ready(function () {
+      $('#tabel-dash').DataTable();
+  });
+  </script>
+  <script type= "text/javascript">
+    $(document).ready(function () {
+      $('#tabel-klr').DataTable();
+  });
+  </script>
+  <script type= "text/javascript">
+    $(document).ready(function () {
+      $('#tabel-agt').DataTable();
+  });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+{% extends 'keuangan/base.html' %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>{{title|upper}}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'staffgereja' %}">Home</a></li>
+          <li class="breadcrumb-item">Keuangan</li>
+          <li class="breadcrumb-item active">{{title}}</li>
+        </ol>
+        <div class="filter ">
+          <a class="icon me-2" href="#" data-bs-toggle="modal" data-bs-target="#verticalycentered"><i class="bi bi-file-earmark-plus-fill text-success"> Tambah Entri</i></a>
+          
+          <a class="icon" href="#" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#modal-export"><i class="bi bi-file-earmark-arrow-down-fill text-dark"> Export {{title}}</i></a>
+          <a class="icon" href="#" >Jumlah {{title}} : {{jumlah}}</i></a>
+          <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Tambahkan Entri Baru</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+              <form class="row g-3" action="" method="POST">
+                {% csrf_token %} 
+                <div class="col-md-12">
+                  <input type="text" class="form-control" placeholder="Uraian" name="uraian">
+                </div>
+                
+                <div class="col-md-6">
+                  <input type="date" class="form-control" placeholder="Tanggal" name="tanggal">
+                </div>
+                <div class="col-md-6">
+                  <input type="number" class="form-control" placeholder="Jumlah" name="jumlah">
+                </div>
+                <div class="col-6">
+                  <input type="number" class="form-control" placeholder="Huria (45%)" name="huria">
+                </div>
+                <div class="col-6">
+                  <input type="number" class="form-control" placeholder="Pusat (55%)" name="pusat">
+                </div>
+                <div class="col-md-6">
+                  <input type="number" class="form-control" placeholder="Pembangunan" name="pembangunan">
+                </div>
+                <div class="col-md-6">
+                  
+                  {% if request.resolver_match.kwargs.slug == 'semua' %}
+                    <select id="inputState" class="form-select" name="kategori" id="kategori">
+                      <option >Kategori...</option>
+                    
+                    {% for cat in kategori %}
+                    <option value="{{cat.slug}}" name="cat" id="cat">{{cat.title}}</option>
+                    {% endfor %}
+                    </select>
+                  {% elif request.resolver_match.kwargs.slug == 'sektor-1' %}
+                    <select id="inputState" class="form-select" name="kategori" id="kategori">
+                    <option value="sektor-1" name="cat" id="cat">Sektor 1</option></select>
+                  {% elif request.resolver_match.kwargs.slug == 'sektor-2' %}
+                    <select id="inputState" class="form-select" name="kategori" id="kategori">
+                    <option value="sektor-2" name="cat" id="cat">Sektor 2</option></select>
+                    
+                  {% endif %}
+                    
+                  
+                
+                </div>
+                <div class="col-md-6">
+                  <input type="hidden" class="form-control" placeholder="Jenis" name="jenis" value="True" readonly>
+                </div>
+                
+                <div class="modal-footer">
+                  <input type="submit" name="add-penerimaan" value="Submit" class="btn btn btn-primary"></input>
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+    
+    <section class="section dashboard">
+      <div class="row">
+        
+        <!-- Left side columns -->
+        <div class="col-lg-12">
+          
+          <div class="card pt-4">
+            
+            <div class="card-body ">
+              
+              <!-- Default Table -->
+              <table class="table" id="tabel-terima">
+                <thead>
+                  <tr>
+                    <th scope="col">Tgl Input</th>
+                    <th scope="col">Uraian</th>
+                    <th scope="col">Jlh</th>
+                    <th scope="col">Huria</th>
+                    <th scope="col">Pusat</th>
+                    <th scope="col">Pembangunan</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for fnc in keuangan %}
+                    <tr>
+                      <td>{{fnc.created|date:"d/m/Y"}}</td>
+                      <td>{{fnc.uraian|slice:"5"}}...</td>
+                      <td>{{fnc.jumlah|intcomma}}</td>
+                      <td>{{fnc.huria|intcomma}}</td>
+                      <td>{{fnc.pusat|intcomma}}</td>
+                      <td name="pemb">{{fnc.pembangunan|intcomma}}</td>
+                      <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                          <form action="" method="post" onsubmit="return confirm('Yakin ingin menghapus entri?');">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete" id="delete" value="{{fnc.id}}">
+                            <input type="submit" name="delete-entri" class="btn btn-danger btn-sm " value="Del"></input>
+                          </form> 
+                          <a href="{% url 'detail-terima' fnc.slug %}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i></a>
+                        </div>
+                        
+                       
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              </table>
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+        </div><!-- End Left side columns -->
+
+        
+
+      </div>
+    </section>
+    <div class="modal fade" id="modal-export" tabindex="-1" role="dialog" aria-labelledby="modal-export" aria-hidden="true">
+      <div class="modal-dialog modal-tertiary modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Export {{title}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+              <form class="row g-3" action="{% url 'export-entri' %}" method="POST">
+                    <div class="modal-body pt-0">
+                        <div class="py-0 px-3 text-center">
+                          
+                            {% comment %} <p class="mb-4 text-white">Masukkan Email Terdaftar.</p> {% endcomment %}
+                            
+                                {% csrf_token %}
+                                    <div class="row mx-2 my-2">
+                                    
+                                      <label class="mx-2 my-2"><h6>Masukkan Rentang Waktu {{title}}</h6></label>
+                                      <div class="col-md-6">
+                                        <input type="date" class="form-control" placeholder="Start" name="d-start" required>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="date" class="form-control" placeholder="End" name="d-end" required>
+                                      </div>
+                                        
+                                    </div>
+                            
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center pt-0 pb-3">
+                            
+                         <input type="hidden" value="{{request.resolver_match.kwargs.slug}}" name="penerimaan-slug">
+                          <input type="submit" name="export-data-penerimaan" value="Export Range" class="btn btn btn-primary"></input>
+                        </form>
+                        <form  action="{% url 'export-entri' %}" method="POST">
+                            {% csrf_token %}
+                          <input type="hidden" value="{{request.resolver_match.kwargs.slug}}" name="penerimaan-slug">
+                          <input type="submit" name="export-penerimaan" value="Export All" class="btn btn btn-success"></input>
+                        </form>
+                          <button type="reset" class="btn btn-secondary">Reset</button>
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+          </div>
+      </div>
+    </div>
+  </main><!-- End #main -->
+
+{% endblock content %}
